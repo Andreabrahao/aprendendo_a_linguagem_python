@@ -43,3 +43,5 @@ perfilVip = 'Flávio Almeida'
 recibosEmAtraso = 30
 
 OBS.: A synttaxe do Python se define ao final da construcao do "IF" com ":", caso contrario o codigo nao funcionara, ao final do "ELSE" colocar ":"
+
+Metodo ".format" permite que inclua os valores das strings previamente definidas em {}.
