@@ -1,33 +1,53 @@
-print("*******************************")
-print("Bem-vindo ao jogo de advinhacao")
-print("*******************************")
+import random
+def jogar():
+    print("*******************************")
+    print("Bem-vindo ao jogo de advinhacao")
+    print("*******************************")
 
-numero_secreto = 42
-total_de_tentativas = 3
-rodada = 1
+    numero_secreto = random.randrange(1, 51)
+    total_de_tentativas = 0
+    pontos = 100
 
-while(rodada <= total_de_tentativas):
-    print("Tentativa {} de {}" .format(rodada, total_de_tentativas))
-    chute_str = input("Digite o seu numero: ")
-    print("Voce digitou ", chute_str)
-    chute = int(chute_str)
+    print("Qual nivel de dificuldade?")
+    print("(1) Facil, (2) Medio, (3) Dificil")
 
-    acertou = numero_secreto == chute
-    maior = chute > numero_secreto
-    menor = chute < numero_secreto
-    perdeu = rodada >= total_de_tentativas
-
-    if(acertou):
-        print("Voce acertou!")
-        break
+    nivel = int(input("Define o nivel: "))
+    if (nivel == 1):
+        total_de_tentativas = 20
+    elif (nivel == 2):
+        total_de_tentativas = 10
     else:
-        if(maior):
-            print("Voce errou! o seu chute foi maior que seu numero secreto")
-        elif(menor):
-            print("Voce errou! o seu chute foi menor que seu numero secreto")
-    if(perdeu):
-        print("Voce nao tem mais chance!")
+        total_de_tentativas = 5
 
-    rodada = rodada + 1
+    for rodada in range(1, total_de_tentativas + 1):
+        print("Tentativa {} de {}".format(rodada, total_de_tentativas))
+        chute_str = input("Digite um numero entre 1 e 50: ")
+        print("Voce digitou ", chute_str)
+        chute = int(chute_str)
 
-print("Fim do game!")
+        if (chute < 1 or chute > 50):
+            print("Voce deve digitar um numero entre 1 e 50")
+            continue
+
+        acertou = numero_secreto == chute
+        maior = chute > numero_secreto
+        menor = chute < numero_secreto
+        perdeu = rodada >= total_de_tentativas
+
+        if (acertou):
+            print("Voce acertou e fez {} pontos!".format(pontos))
+            print("Fim do game!")
+            break
+        else:
+            if (maior):
+                print("Voce errou! o seu chute foi maior que seu numero secreto")
+            elif (menor):
+                print("Voce errou! o seu chute foi menor que seu numero secreto")
+
+            pontos_perdidos = abs(numero_secreto - chute)
+            pontos = pontos - pontos_perdidos
+        if (perdeu):
+            print("Voce nao tem mais chance!")
+
+if(__name__ == "__main__"):
+    jogar()
